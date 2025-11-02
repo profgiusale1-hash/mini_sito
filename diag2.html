@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <h1>Diagramma Temperatura-Tempo Interattivo</h1>
+  <h2>Prof. Giuseppe Salerno</h2>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h3>Diagramma Temperatura-Tempo per imparare a leggere i valori dal grafico interattivo</h3>
+  <h4 style="color: red;"> Curva 20% A 80% B </h4>
+  <h4 style="color: blue;"> Curva 0% A 100% B </h4>
+
+  <div id="grafico" style="width:100%;max-width:900px;height:600px;"></div>
+
+  <script>
+    // Composizione in % (0 = componente A puro, 100 = componente B puro) - trasformato in tempo
+    var tempo1 = [0, 5, 10, 15, 20, 30, 44, 46, 50, 60]; // 
+    var tempo2 = [0, 5, 10, 15, 20, 30, 40, 50, 55, 60];// 
+
+    // Curve liquidus
+    var curva1 = [1400, 1200, 1000, 800, 760, 700, 660, 600, 460, 340]; // Curva 20% A 80% B
+    var curva2 = [1400, 1220, 1020, 820, 600, 600, 600, 600, 400, 350]; // curva 0% di A e 100% di B
+
+    
+
+    // Tracce Plotly
+
+    var traceSinistra = {
+      x: tempo1,
+      y: curva1,
+      mode: 'lines+markers',
+      name: 'Curva 20% A 80% B',
+      line: {color: 'red', width: 3}
+    };
+
+    var traceDestra = {
+      x: tempo2,
+      y: curva2,
+      mode: 'lines+markers',
+      name: 'Curva 0% A 100% B',
+      line: {color: 'blue', width: 3}
+    };
+
+    var traceFineTrasformazione = {
+      x: [0, 60], // da 0% a 100% per linea orizzontale
+      y: [660, 660],
+      mode: 'lines',
+      name: 'T Fine trasformazione',
+      line: {color: 'green', width: 3, dash: 'dash'}
+    };
+
+ var traceInizioTrasformazione = {
+      x: [0, 60], // da 0% a 100% per linea orizzontale
+      y: [800, 800],
+      mode: 'lines',
+      name: 'T Inizio trasformazione',
+      line: {color: 'green', width: 3, dash: 'dash'}
+    };
+
+    var layout = {
+      title: 'Diagramma Temperatura Tempo',
+      xaxis: {title: 'Tempo di Raffreddamento (Minuti)'},
+      yaxis: {title: 'Temperatura del Metallo Fuso (°C)'}
+    };
+
+    Plotly.newPlot('grafico', [traceSinistra, traceDestra, traceInizioTrasformazione, traceFineTrasformazione], layout);
+  </script>
+</body>
+</html>
